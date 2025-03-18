@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Công Việc</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #taskList { margin-top: 20px; }
+        .task-item { margin: 5px 0; display: flex; align-items: center; }
+        .remove-btn { margin-left: 10px; color: red; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Danh Sách Công Việc</h1>
+    <input type="text" id="taskInput" placeholder="Nhập công việc...">
+    <button onclick="addTask(taskInput.value)">Thêm</button>
+    <ul id="taskList"></ul>
+    <script>
+        let tasks = [];
+        function addTask(task) {
+            tasks.push(task);
+        }
+        function removeTask(index) {
+            tasks.splice(index, 1);
+        }
+        function displayTasks() {
+            console.log("Danh sách công việc:");
+            tasks.forEach((task, index) => {
+                console.log(`${index + 1}. ${task}`);
+            });
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.className = 'task-item';
+                li.innerHTML = `${index + 1}. ${task} <span class="remove-btn" onclick="removeTask(${index}); displayTasks();">&#10060;</span>`;
+                taskList.appendChild(li);
+            });
+        }
+        addTask("Học JavaScript");
+        addTask("Làm bài tập");
+        addTask("Đọc sách");
+
+        displayTasks();
+        removeTask(1);
+        console.log("Sau khi xóa một công việc:");
+        displayTasks();
+    </script>
+</body>
+</html>
