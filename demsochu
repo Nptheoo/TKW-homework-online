@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm Số Lần Xuất Hiện Của Từ</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; padding: 5px; }
+        button { padding: 5px 10px; cursor: pointer; }
+        #result { margin-top: 10px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>Đếm Số Lần Xuất Hiện Của Từ</h1>
+    <textarea id="textInput" placeholder="Nhập đoạn văn..."></textarea>
+    <button onclick="countWords()">Đếm Từ</button>
+    <h2>Kết Quả:</h2>
+    <div id="result"></div>
+
+    <script>
+        function countWords() {
+            const text = document.getElementById('textInput').value.toLowerCase().trim();
+            const words = text.replace(/[.,?]/g, '').split(/\s+/);
+            const wordCount = {};
+
+            words.forEach(word => {
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            });
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
+
+            if (words.length === 1 && words[0] === '') {
+                resultElement.textContent = 'Không có từ nào được tìm thấy.';
+            } else {
+                for (const [word, count] of Object.entries(wordCount)) {
+                    const p = document.createElement('p');
+                    p.textContent = `${word}: ${count}`;
+                    resultElement.appendChild(p);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
